@@ -64,65 +64,76 @@
       color: #333;
     }
 
+    /* Envoltório da Tabela de Classificação */
     .table-wrapper-classificacao {
       overflow-x: auto;
-      position: relative;
       width: 100%;
     }
 
+    /* Tabela de Classificação como layout fixo */
     .tabela-classificacao {
-      min-width: 600px;
       table-layout: fixed;
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
     }
 
+    /* Células em geral */
     .tabela-classificacao th,
     .tabela-classificacao td {
       white-space: nowrap;
-      text-align: center;
       font-size: 0.6rem;
       padding: 0.4rem 0.3rem;
+      text-align: center;
     }
 
-    /* Coluna TIME */
-    .col-time {
-      width: 28px;  /* ~30% menor que 40px */
+    /* ==== COLUNAS INDIVIDUAIS COM LARGURA DEFINIDA ==== */
+
+    /* Coluna 1: Time */
+    .tabela-classificacao th.col-time,
+    .tabela-classificacao td.col-time {
+      width: 100px;  /* ajuste aqui */
       background-color: #fff8c4 !important;
-    }
-
-    /* Coluna PONTOS */
-    .col-pontos {
-      /* <- Altere a largura da coluna Pontos aqui */
-      width: 28px;
-      background-color: #fff8c4 !important;
-    }
-
-    .sticky-col {
       position: sticky;
       left: 0;
       z-index: 2;
-      background-color: #fff8c4 !important;
     }
 
-    .sticky-col-2 {
+    /* Coluna 2: Pontos */
+    .tabela-classificacao th.col-pontos,
+    .tabela-classificacao td.col-pontos {
+      width: 60px;  /* ajuste aqui */
+      background-color: #fff8c4 !important;
       position: sticky;
-      left: 28px; /* <- precisa ser igual à .col-time no desktop */
+      left: 100px;  /* igual à largura da coluna Time */
       z-index: 2;
-      background-color: #fff8c4 !important;
     }
 
-    /* Colunas restantes: V, D, SV, SP */
+    /* Demais colunas (V, D, SV, SP) */
     .tabela-classificacao th:nth-child(n+3),
     .tabela-classificacao td:nth-child(n+3) {
-      /* <- Altere a largura das colunas finais aqui */
-      width: 30px;
+      width: 40px;
     }
 
+    /* MOBILE: reduza ainda mais */
     @media (max-width: 576px) {
-      .col-time { width: 25px; }
-      .col-pontos { width: 20px; }
+      .tabela-classificacao th.col-time,
+      .tabela-classificacao td.col-time {
+        width: 85px;
+      }
+
+      .tabela-classificacao th.col-pontos,
+      .tabela-classificacao td.col-pontos {
+        width: 50px;
+        left: 85px;
+      }
+
       .tabela-classificacao th:nth-child(n+3),
-      .tabela-classificacao td:nth-child(n+3) { width: 13px; }
+      .tabela-classificacao td:nth-child(n+3) {
+        width: 35px;
+      }
     }
+
   </style>
 </head>
 <body>
@@ -143,20 +154,24 @@
       </div>
     </div>
 
-    <!-- Classificacao -->
+    <!-- Tabela de Classificação -->
     <div class="card">
       <div class="card-body">
         <h2 class="card-title">🥇 Classificação</h2>
         <small class="text-muted d-block mb-1">
           <strong>V</strong> = Vitória, <strong>D</strong> = Derrota, <strong>SV</strong> = Sets Vencidos, <strong>SP</strong> = Sets Perdidos
         </small>
-        <div class="table-wrapper-classificacao table-responsive mt-1">
+        <!-- Removemos a table-responsive daqui! -->
+        <div class="table-wrapper-classificacao mt-1">
           <table class="table table-striped tabela-classificacao mb-0">
             <thead>
               <tr>
                 <th class="sticky-col col-time">Time</th>
                 <th class="sticky-col-2 col-pontos">Pontos</th>
-                <th>V</th><th>D</th><th>SV</th><th>SP</th>
+                <th class="col-vitorias" style="background-color: #fff8c4;">V</th>
+                <th class="col-derrotas" style="background-color: #fff8c4;">D</th>
+                <th class="col-sets-vencidos" style="background-color: #fff8c4;">SV</th>
+                <th class="col-sets-perdidos" style="background-color: #fff8c4;">SP</th>
               </tr>
             </thead>
             <tbody id="tabela-classificacao"></tbody>
@@ -201,7 +216,7 @@
           align-items: center;
           justify-content: flex-start;
           gap: 6px;
-          padding-left: 15px;  /* << margem para deslocar tudo mais ao centro */
+          padding-left: 8px;  /* << margem para deslocar tudo mais ao centro */
         ">
           <span style="
             width: 10px;
