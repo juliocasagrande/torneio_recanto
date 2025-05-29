@@ -85,15 +85,14 @@
 
     /* Coluna TIME */
     .col-time {
-      /* <- Altere a largura da coluna Time aqui */
-      width: 40px;
+      width: 28px;  /* ~30% menor que 40px */
       background-color: #fff8c4 !important;
     }
 
     /* Coluna PONTOS */
     .col-pontos {
       /* <- Altere a largura da coluna Pontos aqui */
-      width: 35px;
+      width: 28px;
       background-color: #fff8c4 !important;
     }
 
@@ -119,10 +118,10 @@
     }
 
     @media (max-width: 576px) {
-      .col-time { width: 35px; }
-      .col-pontos { width: 25px; }
+      .col-time { width: 25px; }
+      .col-pontos { width: 20px; }
       .tabela-classificacao th:nth-child(n+3),
-      .tabela-classificacao td:nth-child(n+3) { width: 20px; }
+      .tabela-classificacao td:nth-child(n+3) { width: 13px; }
     }
   </style>
 </head>
@@ -156,7 +155,7 @@
             <thead>
               <tr>
                 <th class="sticky-col col-time">Time</th>
-                <th class="sticky-col-2 col-pontos">P</th>
+                <th class="sticky-col-2 col-pontos">Pontos</th>
                 <th>V</th><th>D</th><th>SV</th><th>SP</th>
               </tr>
             </thead>
@@ -223,11 +222,16 @@
         complete: function(result) {
           const tbody = document.getElementById("tabela-jogos");
           result.data.forEach(j => {
+            const dataFormatada = j.Data ? new Date(j.Data).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }) : '';
             const placar = j.Status === 'Finalizado' ? `${j.PontosA} x ${j.PontosB}` : '-';
             tbody.innerHTML += `
               <tr>
-                <td>${j.Rodada}</td><td>${j.Data}</td><td>${nomeComCor(j.TimeA)}</td>
-                <td>${nomeComCor(j.TimeB)}</td><td>${placar}</td><td>${j.Status}</td>
+                <td>${j.Rodada}</td>
+                <td>${dataFormatada}</td>
+                <td>${nomeComCor(j.TimeA)}</td>
+                <td>${nomeComCor(j.TimeB)}</td>
+                <td>${placar}</td>
+                <td>${j.Status}</td>
               </tr>`;
           });
         }
