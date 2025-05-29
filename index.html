@@ -13,7 +13,8 @@
       background-size: cover;
       color: #fff;
       overflow-x: hidden;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
+      margin: 0;
     }
 
     .beach {
@@ -36,45 +37,48 @@
     h1, h2 {
       font-weight: bold;
       margin-top: 10px;
+      color: #fff;
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
     }
 
     h2 {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
 
     .card {
-      margin-top: 20px;
-      background-color: rgba(255, 255, 255, 0.9);
+      margin-top: 12px;
+      background-color: rgba(255, 255, 255, 0.92);
       color: #333;
-      padding: 16px;
+      padding: 14px;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
     }
 
-    .table th, .table td {
+    .table th,
+    .table td {
       vertical-align: middle;
-      font-size: 0.9rem;
-      padding: 0.6rem;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.3rem;
+      text-align: center;
     }
 
     .tabela-cabecalho-real th {
       background-color: #fdd835be;
       color: #333;
-      text-align: center;
     }
 
     .tabela-cabecalho-jogo th {
       background-color: #22aae8;
       color: #333;
-      text-align: center;
     }
 
     .logo {
       display: block;
       margin: 10px auto 0 auto;
-      max-width: 120px;
+      max-width: 100px;
     }
 
     .card:last-of-type {
@@ -86,36 +90,6 @@
       -webkit-overflow-scrolling: touch;
     }
 
-    /* 📱 Ajustes para dispositivos móveis */
-    @media (max-width: 576px) {
-      body {
-        font-size: 0.70rem;
-      }
-
-      .card {
-        margin-top: 10px;
-        padding: 10px;
-      }
-
-      h1 {
-        font-size: 1rem;
-      }
-
-      h2 {
-        font-size: 0.8rem;
-      }
-
-      .table th, .table td {
-        font-size: 0.70rem;
-        padding: 0.30rem;
-      }
-
-      .logo {
-        max-width: 90px;
-      }
-    }
-
-    /* Tabela responsiva com colunas fixas */
     .table-wrapper-classificacao {
       overflow-x: auto;
       position: relative;
@@ -131,36 +105,86 @@
     .tabela-classificacao td {
       white-space: nowrap;
       text-align: center;
-      padding: 6px 8px;
-      font-size: 0.85rem;
+      font-size: 0.7rem;
+      padding: 0.4rem 0.3rem;
     }
 
+    /* === Coluna TIME === */
+    .col-time {
+      width: 90px;
+      min-width: 35px;
+      max-width: 50px;
+      background-color: #6767671e !important;
+    }
+
+    th.col-time {
+      background-color: #6767671e !important;
+    }
+
+    /* === Coluna PONTOS === */
+    .col-pontos {
+      width: 45px;
+      min-width: 40px;
+      max-width: 50px;
+      background-color: #6767671e !important;
+    }
+
+    th.col-pontos {
+      background-color: #6767671e !important;
+    }
+
+    /* === Colunas fixas === */
     .sticky-col {
       position: sticky;
-      background-color: #fff9c4cc; /* Amarelo claro com leve transparência */
+      left: 0;
       z-index: 2;
       border-right: 1px solid #ccc;
     }
 
-    .col-time {
-      left: 0;
-      min-width: 80px;
-      max-width: 100px;
+    .sticky-col-2 {
+      position: sticky;
+      left: 90px; /* largura da primeira coluna (col-time) */
+      z-index: 2;
+      border-right: 1px solid #ccc;
     }
 
-    .col-pontos {
-      left: 100px;
-      min-width: 40px;
-      max-width: 50px;
+    /* Colunas restantes */
+    .tabela-classificacao th:nth-child(3),
+    .tabela-classificacao th:nth-child(4),
+    .tabela-classificacao th:nth-child(5),
+    .tabela-classificacao th:nth-child(6),
+    .tabela-classificacao td:nth-child(3),
+    .tabela-classificacao td:nth-child(4),
+    .tabela-classificacao td:nth-child(5),
+    .tabela-classificacao td:nth-child(6) {
+      width: 45px;
     }
 
-    /* Estilo da legenda */
-    small.text-light {
-      font-size: 0.75rem;
-      color: #f1f1f1 !important;
-      display: block;
-    }
+    /* Ajuste Mobile */
+    @media (max-width: 576px) {
+      .col-time {
+        width: 70px;
+        min-width: 65px;
+        max-width: 75px;
+      }
 
+      .col-pontos {
+        width: 35px;
+        min-width: 30px;
+        max-width: 38px;
+      }
+
+      .tabela-classificacao th:nth-child(3),
+      .tabela-classificacao th:nth-child(4),
+      .tabela-classificacao th:nth-child(5),
+      .tabela-classificacao th:nth-child(6),
+      .tabela-classificacao td:nth-child(3),
+      .tabela-classificacao td:nth-child(4),
+      .tabela-classificacao td:nth-child(5),
+      .tabela-classificacao td:nth-child(6) {
+        width: 38px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -190,6 +214,7 @@
     <div class="card">
       <div class="card-body">
         <h2 class="card-title">🥇 Classificação</h2>
+        <p class="m-2">V (Vitória) / D (Derrota) / SV (Sets Vencidos) / SP (Sets Perdidos)</p>
         <!-- Legenda das Siglas -->
         <small class="text-light ms-1">
           <strong>V</strong> (Vitórias), 
