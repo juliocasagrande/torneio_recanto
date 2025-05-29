@@ -196,7 +196,24 @@
 
     function nomeComCor(time) {
       const cor = coresDosTimes[time] || '#ccc';
-      return `<span style="display:inline-block; width:12px; height:12px; border-radius:50%; background-color:${cor}; border:1px solid #333; margin-right:6px;"></span>${time}`;
+      return `
+        <div style="
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 6px;
+          padding-left: 15px;  /* << margem para deslocar tudo mais ao centro */
+        ">
+          <span style="
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: ${cor};
+            border: 1px solid #333;
+          "></span>
+          <span>${time}</span>
+        </div>
+      `;
     }
 
     function carregarTabelaJogos(url) {
@@ -261,9 +278,9 @@
       });
     }
 
-    carregarTabelaJogos('LINK_CSV_JOGOS');
-    carregarClassificacao('LINK_CSV_CLASSIFICACAO');
-    carregarTempoReal('LINK_CSV_TEMPO_REAL');
+    carregarTabelaJogos('https://docs.google.com/spreadsheets/d/e/2PACX-1vTEOrNY1NJi2QNdonHeX6hGoDn4xEaqMzueG54u4P7wORUv5mBYny8scPSNHoa1T0PJS4i4R6l9Dzhq/pub?gid=459093141&single=true&output=csv');
+    carregarClassificacao('https://docs.google.com/spreadsheets/d/e/2PACX-1vTEOrNY1NJi2QNdonHeX6hGoDn4xEaqMzueG54u4P7wORUv5mBYny8scPSNHoa1T0PJS4i4R6l9Dzhq/pub?gid=501604502&single=true&output=csv');
+    carregarTempoReal('https://docs.google.com/spreadsheets/d/e/2PACX-1vTEOrNY1NJi2QNdonHeX6hGoDn4xEaqMzueG54u4P7wORUv5mBYny8scPSNHoa1T0PJS4i4R6l9Dzhq/pub?gid=0&single=true&output=csv');
   </script>
 </body>
 </html>
