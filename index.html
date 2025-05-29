@@ -13,65 +13,136 @@
       background-size: cover;
       color: #fff;
       overflow-x: hidden;
+      font-size: 0.8rem;
     }
+
     .beach {
-        position: fixed;
-        bottom: 0;
-        width: 100%;
-        height: 100px;
-        background: url('https://www.transparenttextures.com/patterns/sandpaper.png') repeat-x;
-        animation: wave 10s linear infinite;
-        z-index: -1;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 100px;
+      background: url('https://www.transparenttextures.com/patterns/sandpaper.png') repeat-x;
+      animation: wave 10s linear infinite;
+      z-index: -1;
     }
+
     @keyframes wave {
       from { background-position-x: 0; }
       to { background-position-x: 1000px; }
     }
+
     .net { display: none; }
-    h1, h2 { font-weight: bold; }
+
+    h1, h2 {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+    }
+
     .card {
       margin-top: 20px;
       background-color: rgba(255, 255, 255, 0.9);
       color: #333;
+      padding: 16px;
     }
+
     .table th, .table td {
       vertical-align: middle;
+      font-size: 0.9rem;
+      padding: 0.6rem;
     }
+
     .tabela-cabecalho-real th {
       background-color: #fdd835be;
       color: #333;
       text-align: center;
     }
+
     .tabela-cabecalho-jogo th {
       background-color: #22aae8;
       color: #333;
       text-align: center;
     }
+
     .logo {
-        display: block;
-        margin: 10px auto 0 auto;
-        max-width: 120px;
+      display: block;
+      margin: 10px auto 0 auto;
+      max-width: 120px;
     }
+
     .card:last-of-type {
       margin-bottom: 80px;
     }
+
     .table-responsive {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
 
+    /* 📱 Ajustes para dispositivos móveis */
     @media (max-width: 576px) {
-    .card {
-      margin-top: 10px;
-      padding: 10px;
+      body {
+        font-size: 0.70rem;
+      }
+
+      .card {
+        margin-top: 10px;
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 1rem;
+      }
+
+      h2 {
+        font-size: 0.8rem;
+      }
+
+      .table th, .table td {
+        font-size: 0.70rem;
+        padding: 0.30rem;
+      }
+
+      .logo {
+        max-width: 90px;
+      }
     }
-    h1 {
-      font-size: 1.5rem;
+
+    .table-wrapper-classificacao {
+      overflow-x: auto;
+      position: relative;
+      width: 100%;
     }
-    h2 {
-      font-size: 1.2rem;
+
+    .tabela-classificacao {
+      min-width: 700px;
+      table-layout: fixed;
     }
-  }
+
+    .tabela-classificacao th,
+    .tabela-classificacao td {
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .sticky-col {
+      position: sticky;
+      left: 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      z-index: 2;
+      border-right: 1px solid #ccc;
+    }
+
+    .sticky-col + .sticky-col {
+      left: 90px;
+    }
 
   </style>
 </head>
@@ -102,19 +173,21 @@
     <div class="card">
       <div class="card-body">
         <h2 class="card-title">🥇 Classificação</h2>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Time</th>
-              <th>Pontos</th>
-              <th>Vitórias</th>
-              <th>Derrotas</th>
-              <th>Sets Vencidos</th>
-              <th>Sets Perdidos</th>
-            </tr>
-          </thead>
-          <tbody id="tabela-classificacao"></tbody>
-        </table>
+        <div class="table-wrapper-classificacao table-responsive">
+          <table class="table table-striped tabela-classificacao">
+            <thead>
+              <tr>
+                <th class="sticky-col">Time</th>
+                <th class="sticky-col">Pontos</th>
+                <th>Vitórias</th>
+                <th>Derrotas</th>
+                <th>Sets Vencidos</th>
+                <th>Sets Perdidos</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-classificacao"></tbody>
+          </table>
+        </div>
       </div>
     </div>
 
