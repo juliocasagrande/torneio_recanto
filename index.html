@@ -32,20 +32,10 @@
       to { background-position-x: 1000px; }
     }
 
-    .net { display: none; }
-
     h1, h2 {
       font-weight: bold;
       margin-top: 10px;
       color: #fff;
-    }
-
-    h1 {
-      font-size: 1.6rem;
-    }
-
-    h2 {
-      font-size: 1rem;
     }
 
     .card {
@@ -57,8 +47,7 @@
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
     }
 
-    .table th,
-    .table td {
+    .table th, .table td {
       vertical-align: middle;
       font-size: 0.75rem;
       padding: 0.4rem 0.3rem;
@@ -73,21 +62,6 @@
     .tabela-cabecalho-jogo th {
       background-color: #22aae8;
       color: #333;
-    }
-
-    .logo {
-      display: block;
-      margin: 10px auto 0 auto;
-      max-width: 100px;
-    }
-
-    .card:last-of-type {
-      margin-bottom: 80px;
-    }
-
-    .table-responsive {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
     }
 
     .table-wrapper-classificacao {
@@ -109,31 +83,20 @@
       padding: 0.4rem 0.3rem;
     }
 
-    /* === Coluna TIME === */
+    /* Coluna TIME */
     .col-time {
-      width: 90px;
-      min-width: 35px;
-      max-width: 50px;
-      background-color: #6767671e !important;
+      /* <- Altere a largura da coluna Time aqui */
+      width: 40px;
+      background-color: #fff8c4 !important;
     }
 
-    th.col-time {
-      background-color: #6767671e !important;
-    }
-
-    /* === Coluna PONTOS === */
+    /* Coluna PONTOS */
     .col-pontos {
-      width: 45px;
-      min-width: 40px;
-      max-width: 50px;
-      background-color: #6767671e !important;
+      /* <- Altere a largura da coluna Pontos aqui */
+      width: 35px;
+      background-color: #fff8c4 !important;
     }
 
-    th.col-pontos {
-      background-color: #6767671e !important;
-    }
-
-    /* === Colunas fixas === */
     .sticky-col {
       position: sticky;
       left: 0;
@@ -143,54 +106,29 @@
 
     .sticky-col-2 {
       position: sticky;
-      left: 90px; /* largura da primeira coluna (col-time) */
+      left: 90px;
       z-index: 2;
       border-right: 1px solid #ccc;
     }
 
-    /* Colunas restantes */
-    .tabela-classificacao th:nth-child(3),
-    .tabela-classificacao th:nth-child(4),
-    .tabela-classificacao th:nth-child(5),
-    .tabela-classificacao th:nth-child(6),
-    .tabela-classificacao td:nth-child(3),
-    .tabela-classificacao td:nth-child(4),
-    .tabela-classificacao td:nth-child(5),
-    .tabela-classificacao td:nth-child(6) {
-      width: 45px;
+    /* Colunas restantes: V, D, SV, SP */
+    .tabela-classificacao th:nth-child(n+3),
+    .tabela-classificacao td:nth-child(n+3) {
+      /* <- Altere a largura das colunas finais aqui */
+      width: 30px;
     }
 
-    /* Ajuste Mobile */
     @media (max-width: 576px) {
-      .col-time {
-        width: 70px;
-        min-width: 65px;
-        max-width: 75px;
-      }
-
-      .col-pontos {
-        width: 35px;
-        min-width: 30px;
-        max-width: 38px;
-      }
-
-      .tabela-classificacao th:nth-child(3),
-      .tabela-classificacao th:nth-child(4),
-      .tabela-classificacao th:nth-child(5),
-      .tabela-classificacao th:nth-child(6),
-      .tabela-classificacao td:nth-child(3),
-      .tabela-classificacao td:nth-child(4),
-      .tabela-classificacao td:nth-child(5),
-      .tabela-classificacao td:nth-child(6) {
-        width: 38px;
-      }
+      .col-time { width: 40px; }
+      .col-pontos { width: 35px; }
+      .tabela-classificacao th:nth-child(n+3),
+      .tabela-classificacao td:nth-child(n+3) { width: 30px; }
     }
   </style>
 </head>
 <body>
   <img src="tt.png" class="img-fluid d-block mx-auto" style="max-width: 200px;" />
   <div class="container mt-2">
-
     <!-- Jogo em Andamento -->
     <div class="card">
       <div class="card-body">
@@ -198,11 +136,7 @@
         <table class="table table-bordered text-center tabela-cabecalho-real">
           <thead>
             <tr>
-              <th>Time A</th>
-              <th>Sets A</th>
-              <th>Placar</th>
-              <th>Sets B</th>
-              <th>Time B</th>
+              <th>Time A</th><th>Sets A</th><th>Placar</th><th>Sets B</th><th>Time B</th>
             </tr>
           </thead>
           <tbody id="jogo-andamento"></tbody>
@@ -210,30 +144,20 @@
       </div>
     </div>
 
-    <!-- Tabela de Classificação -->
+    <!-- Classificacao -->
     <div class="card">
       <div class="card-body">
         <h2 class="card-title">🥇 Classificação</h2>
-        <p class="m-2">V (Vitória) / D (Derrota) / SV (Sets Vencidos) / SP (Sets Perdidos)</p>
-        <!-- Legenda das Siglas -->
-        <small class="text-light ms-1">
-          <strong>V</strong> (Vitórias), 
-          <strong>D</strong> (Derrotas), 
-          <strong>SV</strong> (Sets Vencidos), 
-          <strong>SP</strong> (Sets Perdidos)
+        <small class="text-muted d-block mb-1">
+          <strong>V</strong> = Vitória, <strong>D</strong> = Derrota, <strong>SV</strong> = Sets Vencidos, <strong>SP</strong> = Sets Perdidos
         </small>
-
-        <!-- Tabela de Classificação com colunas fixas e siglas -->
         <div class="table-wrapper-classificacao table-responsive mt-1">
           <table class="table table-striped tabela-classificacao mb-0">
             <thead>
               <tr>
                 <th class="sticky-col col-time">Time</th>
-                <th class="sticky-col col-pontos">P</th>
-                <th>V</th>
-                <th>D</th>
-                <th>SV</th>
-                <th>SP</th>
+                <th class="sticky-col-2 col-pontos">P</th>
+                <th>V</th><th>D</th><th>SV</th><th>SP</th>
               </tr>
             </thead>
             <tbody id="tabela-classificacao"></tbody>
@@ -250,12 +174,7 @@
           <table class="table table-bordered text-center tabela-cabecalho-jogo">
             <thead>
               <tr>
-                <th>Rodada</th>
-                <th>Data</th>
-                <th>Time A</th>
-                <th>Time B</th>
-                <th>Placar</th>
-                <th>Status</th>
+                <th>Rodada</th><th>Data</th><th>Time A</th><th>Time B</th><th>Placar</th><th>Status</th>
               </tr>
             </thead>
             <tbody id="tabela-jogos"></tbody>
@@ -290,14 +209,9 @@
             const placar = j.Status === 'Finalizado' ? `${j.PontosA} x ${j.PontosB}` : '-';
             tbody.innerHTML += `
               <tr>
-                <td>${j.Rodada}</td>
-                <td>${j.Data}</td>
-                <td>${nomeComCor(j.TimeA)}</td>
-                <td>${nomeComCor(j.TimeB)}</td>
-                <td>${placar}</td>
-                <td>${j.Status}</td>
-              </tr>
-            `;
+                <td>${j.Rodada}</td><td>${j.Data}</td><td>${nomeComCor(j.TimeA)}</td>
+                <td>${nomeComCor(j.TimeB)}</td><td>${placar}</td><td>${j.Status}</td>
+              </tr>`;
           });
         }
       });
@@ -309,11 +223,11 @@
         header: true,
         complete: function(result) {
           const tbody = document.getElementById("tabela-classificacao");
-          const dadosOrdenados = result.data.sort((a, b) => {
-            return parseInt(b.Pontos) - parseInt(a.Pontos) ||
-                   parseInt(b.SetsVencidos) - parseInt(a.SetsVencidos) ||
-                   parseInt(a.SetsPerdidos) - parseInt(b.SetsPerdidos);
-          });
+          const dadosOrdenados = result.data.sort((a, b) =>
+            parseInt(b.Pontos) - parseInt(a.Pontos) ||
+            parseInt(b.SetsVencidos) - parseInt(a.SetsVencidos) ||
+            parseInt(a.SetsPerdidos) - parseInt(b.SetsPerdidos)
+          );
           dadosOrdenados.forEach(t => {
             tbody.innerHTML += `
               <tr>
@@ -323,8 +237,7 @@
                 <td>${t.Derrotas}</td>
                 <td>${t.SetsVencidos}</td>
                 <td>${t.SetsPerdidos}</td>
-              </tr>
-            `;
+              </tr>`;
           });
         }
       });
@@ -343,13 +256,11 @@
               <td><span id="placarA">${dados.PontosA}</span> x <span id="placarB">${dados.PontosB}</span></td>
               <td>${dados.SetsB}</td>
               <td>${nomeComCor(dados.TimeB)}</td>
-            </tr>
-          `;
+            </tr>`;
         }
       });
     }
 
-    // Exemplo de URLs públicas exportadas da planilha do Google Sheets:
     carregarTabelaJogos('LINK_CSV_JOGOS');
     carregarClassificacao('LINK_CSV_CLASSIFICACAO');
     carregarTempoReal('LINK_CSV_TEMPO_REAL');
