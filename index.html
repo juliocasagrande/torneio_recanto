@@ -134,6 +134,11 @@
       }
     }
 
+    .margem-esquerda {
+      padding-left: 25px !important;
+      text-align: left !important;
+    }
+
   </style>
 </head>
 <body>
@@ -146,13 +151,30 @@
         <table class="table table-bordered text-center tabela-cabecalho-real">
           <thead>
             <tr>
-              <th>Time A</th><th>Sets A</th><!-- <th>Placar</th>--><th>Sets B</th><th>Time B</th>
+              <th>Time A</th><th>Sets A</th><th>Sets B</th><th>Time B</th>
             </tr>
           </thead>
           <tbody id="jogo-andamento"></tbody>
         </table>
       </div>
     </div>
+
+    <!-- Finais 
+    <div class="table-responsive">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">🏆 Finais</h2>
+          <table class="table table-bordered text-center tabela-cabecalho-jogo">
+            <thead>
+              <tr>
+                <th>Etapa</th><th>Time A</th><th>Sets A</th><th>Sets B</th><th>Time B</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="tabela-finais"></tbody>
+          </table>
+        </div>
+      </div>
+    </div> -->
 
     <!-- Tabela de Classificação -->
     <div class="card">
@@ -215,8 +237,8 @@
           display: flex;
           align-items: center;
           justify-content: flex-start;
-          gap: 6px;
-          padding-left: 8px;  /* << margem para deslocar tudo mais ao centro */
+          gap: 3px;
+          padding-left: 3px;  /* << margem para deslocar tudo mais ao centro */
         ">
           <span style="
             width: 10px;
@@ -289,16 +311,39 @@
           const dados = result.data[0];
           document.getElementById("jogo-andamento").innerHTML = `
             <tr>
-              <td>${nomeComCor(dados.TimeA)}</td>
+              <td class="margem-esquerda">${nomeComCor(dados.TimeA)}</td>
               <td>${dados.SetsA}</td>
-              <td><span id="placarA">${dados.PontosA}</span> x <span id="placarB">${dados.PontosB}</span></td>
               <td>${dados.SetsB}</td>
-              <td>${nomeComCor(dados.TimeB)}</td>
+              <td class="margem-esquerda">${nomeComCor(dados.TimeB)}</td>
             </tr>`;
         }
       });
     }
 
+    function carregarFinais(url) {
+      Papa.parse(url, {
+        download: true,
+        header: true,
+        complete: function(result) {
+          const tbody = document.getElementById("tabela-finais");
+          result.data.forEach(j => {
+            if (!j.Etapa || !j.TimeA || !j.TimeB) return; // ignora linhas vazias
+
+            tbody.innerHTML += `
+              <tr>
+                <td>${j.Etapa}</td>
+                <td>${nomeComCor(j.TimeA)}</td>
+                <td>${j.SetsA}</td>
+                <td>${j.SetsB}</td>
+                <td>${nomeComCor(j.TimeB)}</td>
+                <td>${j.Status}</td>
+              </tr>`;
+          });
+        }
+      });
+    }
+
+    carregarFinais('https://docs.google.com/spreadsheets/d/e/2PACX-1vTEOrNY1NJi2QNdonHeX6hGoDn4xEaqMzueG54u4P7wORUv5mBYny8scPSNHoa1T0PJS4i4R6l9Dzhq/pub?gid=1076098939&single=true&output=csv');
     carregarTabelaJogos('https://docs.google.com/spreadsheets/d/e/2PACX-1vTEOrNY1NJi2QNdonHeX6hGoDn4xEaqMzueG54u4P7wORUv5mBYny8scPSNHoa1T0PJS4i4R6l9Dzhq/pub?gid=459093141&single=true&output=csv');
     carregarClassificacao('https://docs.google.com/spreadsheets/d/e/2PACX-1vTEOrNY1NJi2QNdonHeX6hGoDn4xEaqMzueG54u4P7wORUv5mBYny8scPSNHoa1T0PJS4i4R6l9Dzhq/pub?gid=501604502&single=true&output=csv');
     carregarTempoReal('https://docs.google.com/spreadsheets/d/e/2PACX-1vTEOrNY1NJi2QNdonHeX6hGoDn4xEaqMzueG54u4P7wORUv5mBYny8scPSNHoa1T0PJS4i4R6l9Dzhq/pub?gid=0&single=true&output=csv');
